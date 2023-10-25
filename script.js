@@ -87,10 +87,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
   document.querySelector('model-viewer').addEventListener('progress', onProgress)
 })
 
-myarbutton.addEventListener('click', function() {
-  medicalBag();
-})
+// myarbutton.addEventListener('click', function() {
+//   medicalBag();
+// })
 
 modelViewer.addEventListener('xrExit', () => {
   digitalTwin();
+});
+
+modelViewer.addEventListener('xrEnter', () => {
+  medicalBag();
 });
