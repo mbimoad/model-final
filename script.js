@@ -85,13 +85,25 @@ function digitalTwin() {
 // Load
 document.addEventListener('DOMContentLoaded', (event) => {
   document.querySelector('model-viewer').addEventListener('progress', onProgress)
-  modelViewer.addEventListener('xrExit', () => {
-    digitalTwin();
-  });
+    // Initialize a flag to track AR mode
+    let inARMode = false;
+
+    // Function to check and update AR mode
+    function checkARMode() {
+      if (modelViewer.environment === "ar") {
+        inARMode = true;
+        medicalBag(); // Execute your AR-related function
+      } else {
+        inARMode = false;
+        digitalTwin(); // Execute your non-AR-related function
+      }
+    }
   
-  modelViewer.addEventListener('xrEnter', () => {
-    medicalBag();
-  });
+    // Listen for the environmentChanged event
+    modelViewer.addEventListener("environmentChanged", checkARMode);
+  
+    // Initial check
+    checkARMode();
 })
 
 // myarbutton.addEventListener('click', function() {
