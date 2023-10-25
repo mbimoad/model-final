@@ -4,22 +4,7 @@ const myarbutton  = document.querySelector('.myar-button');
 document.addEventListener('DOMContentLoaded', (event) => {
   if(modelViewer.canActivateAR) {
 
-    // Cek apakah perangkat mendukung WebXR
-    if ('xr' in navigator) {
-      // Mendaftarkan event listener untuk mode AR masuk (AR session started)
-      navigator.xr.addEventListener('sessionstart', (event) => {
-          // Perangkat sedang dalam mode AR
-          modelViewer.setAttribute("src", "./assets/medicalbag.glb"); 
-          modelViewer.setAttribute("poster", "./assets/medicalbag.webp"); 
-      });
-
-      // Mendaftarkan event listener untuk mode AR keluar (AR session ended)
-      navigator.xr.addEventListener('sessionend', (event) => {
-        // Perangkat tidak dalam mode AR
-          modelViewer.setAttribute("src", "./assets/digitaltwin.glb"); 
-          modelViewer.setAttribute("poster", "./assets/digitaltwin.webp"); 
-      });
-    }
+    
 
 
 
