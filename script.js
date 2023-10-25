@@ -4,7 +4,49 @@ const myarbutton  = document.querySelector('.myar-button');
 document.addEventListener('DOMContentLoaded', (event) => {
   if(modelViewer.canActivateAR) {
     myarbutton.addEventListener('click', function() {
-      medicalBag();
+      
+      if ('xr' in navigator) {
+        navigator.xr.isSessionSupported('immersive-ar').then((supported) => {
+          if (supported) {
+            // Perangkat mendukung AR
+            navigator.xr.requestSession('immersive-ar').then((session) => {
+              session.addEventListener('end', () => {
+                // AR mode selesai
+                // Ganti model kembali ke abc.glb
+                digitalTwin();
+              });
+    
+              // Ganti model ke bcd.glb saat masuk ke AR mode
+              medicalBag();
+    
+              session.requestReferenceSpace({ type: 'local' }).then((referenceSpace) => {
+                session.updateRenderState({
+                  baseLayer: new XRWebGLLayer(session, modelViewer.threeDOM.renderer)
+                });
+                session.requestAnimationFrame(function animate(timestamp, frame) {
+                  // Update rendering for AR
+                  modelViewer.updateInSession(session);
+                  session.requestAnimationFrame(animate);
+                });
+              });
+            }).catch((error) => {
+              console.error('Gagal memulai sesi AR:', error);
+            });
+          } else {
+            // Perangkat tidak mendukung AR
+            console.log('Perangkat tidak mendukung AR');
+          }
+        }).catch((error) => {
+          console.error('Terjadi kesalahan saat memeriksa dukungan AR:', error);
+        });
+      } else {
+        // Perangkat tidak mendukung WebXR
+        console.log('Perangkat tidak mendukung WebXR');
+      }
+
+
+
+
     })
   }
 })
