@@ -1,6 +1,31 @@
 const modelViewer = document.querySelector('model-viewer');
 const myarbutton  = document.querySelector('.myar-button'); 
 
+document.addEventListener('DOMContentLoaded', (event) => {
+  if(modelViewer.canActivateAR) {
+
+    // Cek apakah perangkat mendukung WebXR
+    if ('xr' in navigator) {
+      // Mendaftarkan event listener untuk mode AR masuk (AR session started)
+      navigator.xr.addEventListener('sessionstart', (event) => {
+          // Perangkat sedang dalam mode AR
+          modelViewer.setAttribute("src", "./assets/medicalbag.glb"); 
+          modelViewer.setAttribute("poster", "./assets/medicalbag.webp"); 
+      });
+
+      // Mendaftarkan event listener untuk mode AR keluar (AR session ended)
+      navigator.xr.addEventListener('sessionend', (event) => {
+        // Perangkat tidak dalam mode AR
+          modelViewer.setAttribute("src", "./assets/digitaltwin.glb"); 
+          modelViewer.setAttribute("poster", "./assets/digitaltwin.webp"); 
+      });
+    }
+
+
+
+  }
+})
+
 
 // Handles loading the events for <model-viewer>'s slotted progress bar
 function showArButton() {
@@ -8,6 +33,10 @@ function showArButton() {
   myarbutton.setAttribute("slot", "ar-button");
   myarbutton.style.display = 'unset';
 }
+
+
+
+
 
 
 
@@ -86,13 +115,13 @@ function responsiveModel() {
 }
 
 // Inject
-responsiveModel(); 
+// responsiveModel(); 
 
 // Load
 window.onload = function() {
   document.querySelector('model-viewer').addEventListener('progress', onProgress);
-  responsiveModel()
+  // responsiveModel()
 }
 
 // Resize 
-window.onresize = function() {responsiveModel()}
+// window.onresize = function() {responsiveModel()}
