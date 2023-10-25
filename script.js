@@ -3,7 +3,7 @@ const myarbutton  = document.querySelector('.myar-button');
 
 // Handles loading the events for <model-viewer>'s slotted progress bar
 function showArButton() {
-  // myarbutton.setAttribute("slot", "ar-button");
+  myarbutton.setAttribute("slot", "ar-button");
   myarbutton.style.display = 'unset';
 }
 
