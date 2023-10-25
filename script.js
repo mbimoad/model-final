@@ -85,16 +85,16 @@ function digitalTwin() {
 // Load
 document.addEventListener('DOMContentLoaded', (event) => {
   document.querySelector('model-viewer').addEventListener('progress', onProgress)
+  modelViewer.addEventListener('xrExit', () => {
+    digitalTwin();
+  });
+  
+  modelViewer.addEventListener('xrEnter', () => {
+    medicalBag();
+  });
 })
 
 // myarbutton.addEventListener('click', function() {
 //   medicalBag();
 // })
 
-modelViewer.addEventListener('xrExit', () => {
-  digitalTwin();
-});
-
-modelViewer.addEventListener('xrEnter', () => {
-  medicalBag();
-});
