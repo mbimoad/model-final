@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 let isactivate = false; 
 myarbutton.addEventListener('click', function() {
   medicalBag(); 
-  true; 
+  isactivate = true; 
 })
 
 setInterval(() => {
