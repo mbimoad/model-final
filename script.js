@@ -3,11 +3,9 @@ const myarbutton  = document.querySelector('.myar-button');
 
 document.addEventListener('DOMContentLoaded', (event) => {
   if(modelViewer.canActivateAR) {
-
-    
-
-
-
+    myarbutton.addEventListener('click', function() {
+      medicalBag();
+    })
   }
 })
 
@@ -87,17 +85,18 @@ if (!isMobile) {
 
 }
 
-// New JS 
-// Get Desktop or Mobile 
-function responsiveModel() {
-  if(isMobile) {
-    modelViewer.setAttribute("src", "./assets/medicalbag.glb"); 
-    modelViewer.setAttribute("poster", "./assets/medicalbag.webp"); 
-  } else {
-    modelViewer.setAttribute("src", "./assets/digitaltwin.glb"); 
-    modelViewer.setAttribute("poster", "./assets/digitaltwin.webp"); 
-  }
+
+
+function medicalBag() {
+  modelViewer.setAttribute("src", "./assets/medicalbag.glb"); 
+  modelViewer.setAttribute("poster", "./assets/medicalbag.webp"); 
 }
+
+function digitalTwin() {
+  modelViewer.setAttribute("src", "./assets/digitaltwin.glb"); 
+  modelViewer.setAttribute("poster", "./assets/digitaltwin.webp"); 
+}
+
 
 // Inject
 // responsiveModel(); 
