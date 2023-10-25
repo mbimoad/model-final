@@ -85,28 +85,20 @@ function digitalTwin() {
 // Load
 document.addEventListener('DOMContentLoaded', (event) => {
   document.querySelector('model-viewer').addEventListener('progress', onProgress)
-    // Initialize a flag to track AR mode
-    let inARMode = false;
-
-    // Function to check and update AR mode
-    function checkARMode() {
-      if (modelViewer.environment === "ar") {
-        inARMode = true;
-        medicalBag(); // Execute your AR-related function
-      } else {
-        inARMode = false;
-        digitalTwin(); // Execute your non-AR-related function
-      }
-    }
-  
-    // Listen for the environmentChanged event
-    modelViewer.addEventListener("environmentChanged", checkARMode);
-  
-    // Initial check
-    checkARMode();
 })
 
-// myarbutton.addEventListener('click', function() {
-//   medicalBag();
-// })
+let isactivate = false; 
+myarbutton.addEventListener('click', function() {
+  medicalBag(); 
+  true; 
+})
+
+setInterval(() => {
+  if(isactivate) {
+    isactivate = false; 
+    setTimeout(() => {
+      digitalTwin(); 
+    }, 5000); 
+  }
+});
 
