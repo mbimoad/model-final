@@ -5,9 +5,18 @@ let activate = false;
 myarbutton.addEventListener('click', () => {
   if (modelViewer.canActivateAR) {
     activate = true; 
-    medicalBag(); 
+    setTimeout(() => {
+      medicalBag(); 
+    ), 200);
   } 
 });
+
+let isTrue = setInterval(() => {
+  if(activate) {
+    clearInterval(isTrue); 
+    
+  }
+})
 
 
 // Handles loading the events for <model-viewer>'s slotted progress bar
