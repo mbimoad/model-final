@@ -1,15 +1,12 @@
 const modelViewer = document.querySelector('model-viewer');
 const myarbutton  = document.querySelector('.myar-button'); 
+let activate = false; 
 
-
-modelViewer.addEventListener('ar-status', (event) => {
-  if (event.detail === 'entered-ar') {
-    // Masuk ke AR: Ganti model ke bcd.glb
-    medicalBag();
-  } else if (event.detail === 'exited-ar') {
-    // Keluar dari AR: Ganti model kembali ke abc.glb
-    digitalTwin();
-  }
+myarbutton.addEventListener('click', () => {
+  if (modelViewer.canActivateAR) {
+    activate = true; 
+    medicalBag(); 
+  } 
 });
 
 
