@@ -1,25 +1,5 @@
 const modelViewer = document.querySelector('model-viewer');
 const myarbutton  = document.querySelector('.myar-button'); 
-let activate = false; 
-
-myarbutton.addEventListener('click', () => {
-  if (modelViewer.canActivateAR) {
-    activate = true; 
-    setTimeout(() => {
-      medicalBag(); 
-    ), 1000);
-  } 
-});
-
-let isTrue = setInterval(() => {
-  if(activate) {
-    clearInterval(isTrue); 
-    setTimeout(() => {
-      digitalTwin();
-    }, 5000);
-  }
-})
-
 
 // Handles loading the events for <model-viewer>'s slotted progress bar
 function showArButton() {
@@ -102,15 +82,15 @@ function digitalTwin() {
   modelViewer.setAttribute("poster", "./assets/digitaltwin.webp"); 
 }
 
-
-// Inject
-// responsiveModel(); 
-
 // Load
-window.onload = function() {
-  document.querySelector('model-viewer').addEventListener('progress', onProgress);
-  // responsiveModel()
-}
+document.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelector('model-viewer').addEventListener('progress', onProgress)
+})
 
-// Resize 
-// window.onresize = function() {responsiveModel()}
+myarbutton.addEventListener('click', function() {
+  medicalBag();
+})
+
+modelViewer.addEventListener('xrExit', () => {
+  digitalTwin();
+});
