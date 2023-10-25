@@ -87,18 +87,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
   document.querySelector('model-viewer').addEventListener('progress', onProgress)
 })
 
-let isactivate = false; 
+
 myarbutton.addEventListener('click', function() {
   medicalBag(); 
-  isactivate = true; 
 })
-
-setInterval(() => {
-  if(isactivate) {
-    isactivate = false; 
-    setTimeout(() => {
-      digitalTwin(); 
-    }, 5000); 
-  }
-});
 
