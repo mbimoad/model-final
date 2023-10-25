@@ -7,14 +7,16 @@ myarbutton.addEventListener('click', () => {
     activate = true; 
     setTimeout(() => {
       medicalBag(); 
-    ), 200);
+    ), 1000);
   } 
 });
 
 let isTrue = setInterval(() => {
   if(activate) {
     clearInterval(isTrue); 
-    
+    setTimeout(() => {
+      digitalTwin();
+    }, 5000);
   }
 })
 
