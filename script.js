@@ -2,35 +2,45 @@ const modelViewer = document.querySelector('model-viewer');
 const myarbutton  = document.querySelector('.myar-button'); 
 
 
-myarbutton.addEventListener('click', function() {
-  modelViewer.enterAR();
-})
 
+// Fungsi untuk memulai AR secara manual
+async function startAR() {
+  if ('xr' in navigator) {
+    try {
+      const session = await navigator.xr.requestSession('immersive-ar');
+      session.addEventListener('end', () => {
+        // Keluar dari AR: Ganti model kembali ke abc.glb
+        console.log("Keluar Ke Mode AR");
+        digitalTwin();
+      });
 
-
-// Event listener untuk perubahan status AR
-modelViewer.addEventListener('ar-status', (event) => {
-  if (event.detail === 'entered-ar') {
-    // Memulai AR: Ganti model ke bcd.glb
-    medicalBag();
-  } else if (event.detail === 'exited-ar') {
-    // Keluar dari AR: Ganti model kembali ke abc.glb
-    digitalTwin();
+      // Masuk ke AR: Ganti model ke bcd.glb
+      console.log('Masuk Ke Mode AR');
+      medicalBag();
+      
+      await session.updateRenderState({
+        baseLayer: new XRWebGLLayer(session, modelViewer.threeDOM.renderer)
+      });
+      session.requestAnimationFrame(function animate(timestamp, frame) {
+        // Update rendering for AR
+        modelViewer.updateInSession(session);
+        session.requestAnimationFrame(animate);
+      });
+    } catch (error) {
+      console.error('Gagal memulai sesi AR:', error);
+    }
+  } else {
+    console.log('Perangkat tidak mendukung WebXR');
   }
-});
+}
+startAR();
 
 
 // Handles loading the events for <model-viewer>'s slotted progress bar
 function showArButton() {
-
   myarbutton.setAttribute("slot", "ar-button");
   myarbutton.style.display = 'unset';
 }
-
-
-
-
-
 
 
 const onProgress = (event) => {
